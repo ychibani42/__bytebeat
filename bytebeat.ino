@@ -42,7 +42,7 @@ static inline char triangle_bells()
 {
     char f = (unsigned char)((unsigned char)((unsigned char)(t >> 11) % (unsigned char)63 ^ (0x15 + t >> 12)) % 102) % 134;
     unsigned short ust = t;
-    return (((((ust f & 256) == 0) - 1 ^ ust * f) & 255) >> ((ust >> 7 + (ust >> 13 & 1)) & 7));
+    return (((((ust & 256) == 0) - 1 ^ ust * ust) & 255) >> ((ust >> 7 + (ust >> 13 & 1)) & 7));
 }
 
 /*
@@ -62,7 +62,7 @@ static inline char triangle_bells2()
 static inline char triangle_bells3()
 {
     unsigned short ust = t;
-    return (char) ((ust * ust) & ((ust >> 12) + 1) | (ust & (ust >> 10)) | (ust & (ust >> 6)) | (cbrt(((ust >> 9) % 128 > 114 ? ust & 4095 : ust & 8191)) / 384 | (ust >> 13 & 1 ? ust / 64 : 0)) & 128);
+    return (char) ((ust * ust) & ((ust >> 12) + 1) | (ust & (ust >> 10)) | (ust & (ust >> 6)) | (unsigned int)(cbrt(((ust >> 9) % 128 > 114 ? ust & 4095 : ust & 8191)) / 384) | ((ust >> 13 & 1) ? (ust / 64) : 0) & 128);
 }
 
 void generate_samples()
