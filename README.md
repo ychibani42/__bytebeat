@@ -1,2 +1,2 @@
 # __bytebeat
-Project in collaboration with my designer friend for his art school.
+Project in collaboration with my designer student friend for his art school.
